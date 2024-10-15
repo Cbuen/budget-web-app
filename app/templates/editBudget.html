@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scal e=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script src="../static/scripts/index.js"></script> -->
+
+    <title>Chris | Entrepreneur Tracker</title> 
+</head>
+
+<body>
+    <nav>
+        <div class="logo"></div>
+        <div class="nav-options">
+            <a href="/">Home</a>
+            <a href="/budget">Budget</a>            
+        </div>
+    </nav>
+
+    <div class="editContainer">
+        <div class="tableContainer">
+            <h1>Budget Editor</h1>
+            <div class="tableTop">
+                <div class="tableTopLeft">
+                    <h3 class="column-title">
+                        {{ userData.keys()[0].upper() }}
+                    </h4>
+                </div>
+                <div class="tableTopRight">
+                    <h4 class="column-title">
+                        {{ userData.keys()[1].upper() }}
+                    </h4>
+                </div>
+            </div>
+            
+            <div class="tableBottom">
+                <div class="tableBottomLeft">
+                    {% for i in userData['Category'] %}
+                        <h4>{{ i }}</h6>
+                    {% endfor %}
+                </div>
+                
+                <div class="tableBottomRight">
+                    {% for i in userData['Amount'] %}
+                        <button class="budgetButton">{{ i }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+
+</html>

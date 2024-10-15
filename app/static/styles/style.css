@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #000000;
+    font-weight: 300;
+    transition: color 0.3s ease;
+    font-size: 18px;
+}
+
+a:hover{
+    color: #0000006b !important;
+}
+    
+body{
+    background-color: #F4F4F9;
+    min-height: 100vh;
+}
+
+button{
+    cursor: pointer;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+    position: absolute;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 16px;
+    padding: 12px;
+    z-index: 1000;
+    margin-top: 10px;
+}
+
+nav .home-link-logo{
+    font-size: 20px;   
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #a0d2eb;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #8ab2c6;}
+
+.tableContainer h1{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.tableTop {
+    display: flex;
+    flex-direction: row;
+}
+
+.tableTopLeft, .tableTopRight {
+    flex: 1;
+}
+
+.tableBottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.tableBottomLeft, .tableBottomRight {
+    flex: 1;
+}
+
+.tableBottomRight{
+    display: flex;
+    flex-direction: column;
+}
+.budgetButton {
+    width: 150px;
+  }
+
+  /* LARGE DIV SPACING */
+.editContainer {
+    padding-top: 120px;
+}
+
+

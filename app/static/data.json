@@ -1,0 +1,16 @@
+{
+    "data": {
+      "Category": [
+        "Rent",
+        "Food",
+        "Transportation",
+        "Utilities"
+      ],
+      "Amount": [
+        1000,
+        50,
+        300,
+        200
+      ]
+    }
+  }

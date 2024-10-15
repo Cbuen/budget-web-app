@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scal e=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- <script src="../static/scripts/index.js"></script> -->
+
+    <title>Chris | Entrepreneur Tracker</title> 
+</head>
+
+<body>
+    <nav>
+        <div class="logo"></div>
+        <div class="nav-options">
+            <a href="/">Home</a>
+            <a href="/budget">Budget</a>            
+        </div>
+    </nav>
+
+    <div class="budgetContainer">
+        <div class="budgetChart">
+            {{ chart | safe }}
+        </div>
+        <div class="dropdown">  
+            <form action="{{ url_for('editBudget') }}" method="GET"><button class="dropbtn">EDIT</button></form>
+        </div>
+        
+    </div>
+    
+
+
+</body>
+
+
+</html>
