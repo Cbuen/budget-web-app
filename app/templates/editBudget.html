@@ -46,7 +46,10 @@
                 
                 <div class="tableBottomRight">
                     {% for i in userData['Amount'] %}
-                        <button class="budgetButton">{{ i }}</button>
+                        <div class="budget-item">
+                            <input type="number" class="amount-input" step="0.01" min="0" placeholder="{{ i }}">
+                            <button class="budgetButton">{{ i }}</button>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
