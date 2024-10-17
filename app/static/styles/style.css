@@ -92,7 +92,7 @@ nav .home-link-logo{
     flex: 1;
 }
 
-.tableBottomRight{
+.tableBottomRight, .tableBottomLeft{
     display: flex;
     flex-direction: column;
 }
@@ -129,7 +129,6 @@ nav .home-link-logo{
     border: 1px solid #ccc;
     display: none;
     box-sizing: border-box;
-    margin-bottom: 5px; /* Space between input and button */
 }
 
 .budget-item:hover .amount-input {
