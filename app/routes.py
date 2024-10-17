@@ -20,7 +20,8 @@ class DataProcessor:
         fig = px.pie(df, values="Amount", names="Category")
 
         # Remove chart background
-        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)",
+                          plot_bgcolor="rgba(0,0,0,0)")
 
         chart = fig.to_html(full_html=False)
         return chart
@@ -35,6 +36,15 @@ class DataProcessor:
             df = pd.DataFrame(data["data"])
         return df
 
+    @staticmethod
+    def userPandaDFCategory(jsonData):
+        with open(jsonData, "r") as f:
+            data = json.load(f)
+
+            # Get nested data
+            df = pd.DataFrame(data)
+        return df
+
 
 @app.route("/")
 def home():
@@ -43,13 +53,19 @@ def home():
 
 @app.route("/budget")
 def budget():
-    chart = DataProcessor.processUserData("app/static/styles/data.json")
+    chart = DataProcessor.processUserData("app/static/data.json")
     return render_template("budget.html", chart=chart)
+
+
+@app.route("/spending")
+def spending():
+    df = DataProcessor.userPandaDFCategory("app/static/categories.json")
+    return render_template("spending.html", userData=df)
 
 
 @app.route("/editBudget")
 def editBudget():
-    df = DataProcessor.userPandaDF("app/static/styles/data.json")
+    df = DataProcessor.userPandaDF("app/static/data.json")
 
     return render_template("editBudget.html", userData=df)
 
@@ -65,7 +81,7 @@ def updateBudget():
 
         if new_category and new_amount:
             # Load the current data
-            with open("app/static/styles/data.json", "r") as file:
+            with open("app/static/data.json", "r") as file:
                 data = json.load(file)
 
             # Check if the index is valid
@@ -75,11 +91,12 @@ def updateBudget():
                 data["data"]["Amount"][index] = float(new_amount)
 
                 # Save the updated data
-                with open("app/static/styles/data.json", "w") as file:
+                with open("app/static/data.json", "w") as file:
                     json.dump(data, file, indent=4)
 
                 print(
-                    f"Updated budget: New Category: {new_category}, New Amount: {new_amount}"
+                    f"Updated budget: New Category: {
+                        new_category}, New Amount: {new_amount}"
                 )
             else:
                 print(f"Invalid index: {index}")
@@ -94,7 +111,7 @@ def updateBudget():
 @app.route("/addBudgetItem", methods=["POST", "GET"])
 def addBudgetItem():
     # Load the current data
-    with open("app/static/styles/data.json", "r") as file:
+    with open("app/static/data.json", "r") as file:
         data = json.load(file)
 
     # Add a new category with default values
@@ -102,7 +119,7 @@ def addBudgetItem():
     data["data"]["Amount"].append(100.0)  # Default amount of 100
 
     # Save the updated data
-    with open("app/static/styles/data.json", "w") as file:
+    with open("app/static/data.json", "w") as file:
         json.dump(data, file, indent=4)
 
     print(f"Added new budget item: Category: New Category, Amount: 100.0")
@@ -113,7 +130,7 @@ def addBudgetItem():
 @app.route("/removeBudgetItem", methods=["POST", "GET"])
 def removeBudgetItem():
     # LOAD THE CURRENT DATA
-    with open("app/static/styles/data.json", "r") as file:
+    with open("app/static/data.json", "r") as file:
         data = json.load(file)
 
     # check if there are items to remvoe
@@ -123,7 +140,7 @@ def removeBudgetItem():
         data["data"]["Category"].pop()
         data["data"]["Amount"].pop()
 
-        with open("app/static/styles/data.json", "w") as file:
+        with open("app/static/data.json", "w") as file:
             json.dump(data, file, indent=4)
 
         print("Removed last budget item")
@@ -131,3 +148,8 @@ def removeBudgetItem():
         print("No items to remove")
 
     return redirect(url_for("editBudget"))
+
+
+@app.route('/displayTransactions', methods=['POST', 'GET'])
+def displayTransactions():
+    pass

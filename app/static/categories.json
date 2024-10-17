@@ -1,0 +1,9 @@
+{
+    "categories": {
+        "Rent": [1000.0],
+        "Transportation": [20, 10, 30],
+        "School Expenses": [1000.0, 600.00],
+        "Food": [20, 10, 30],
+        "Random Expenses": [10, 10, 30.20]
+    }
+}

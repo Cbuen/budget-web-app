@@ -22,13 +22,21 @@
         </div>
     </nav>
 
-    <div class="budgetContainer">
-        <div class="budgetChart">
-            {{ chart | safe }}
+    <!-- divs used to divide container top half bottom half (note for myself) -->
+    <div class="editContainer">
+        <div class="topContainer">
+            <h1>Spending</h1>
         </div>
-        <div class="dropdown">
-            <form action="{{ url_for('editBudget') }}"><button class="dropbtn">EDIT</button></form>
-
+        <div class="bottomContainer">
+            <div class="transactionListContainer">
+                <div class="buttonList">
+                    <form action="{{ url_for('displayTransactions') }}" method="POST">
+                        {% for index in range(userData|length) %}
+                            <button type="submit"class="displayButton">{{ userData['categories'][index] }}</button>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 

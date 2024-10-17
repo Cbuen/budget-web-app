@@ -9,7 +9,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- <script src="../static/scripts/index.js"></script> -->
 
-    <title>Chris | Entrepreneur Tracker</title> 
+    <title>Chris | Entrepreneur Tracker</title>
 </head>
 
 <body>
@@ -17,7 +17,8 @@
         <div class="logo"></div>
         <div class="nav-options">
             <a href="/">Home</a>
-            <a href="/budget">Budget</a>            
+            <a href="/budget">Budget</a>
+            <a href="/spending">Spending</a>
         </div>
     </nav>
 
@@ -25,23 +26,16 @@
         <form action="{{ url_for('updateBudget') }}" method="POST">
             <div class="tableContainer">
                 <h1>Budget Editor</h1>
-                <div class="tableTop">
-                    <div class="tableTopLeft">
-                        <h3 class="column-title">{{ userData.keys()[0].upper() }}</h3>
-                    </div>
-                    <div class="tableTopRight">
-                        <h3 class="column-title">{{ userData.keys()[1].upper() }}</h3>
-                    </div>
-                </div>
-                
                 <div class="tableBottom">
                     <!-- FOR OWN USAGE: JINJA Iterates through the range and adds that index to the name and value elements of the input tag GIVING EACH ELEMENT A INDEX!!! -->
                     {% for index in range(userData['Category']|length) %}
-                        <div class="budget-item">
-                            <input placeholder="{{ userData['Category'][index] }}" name="category_{{ index }}" class="category-input" value="{{ userData['Category'][index] }}">
-                            <input placeholder="{{ userData['Amount'][index] }}" name="amount_{{ index }}" type="number" class="amount-input" step="0.01" min="0" value="{{ userData['Amount'][index] }}">
-                            <button type="submit" class="budgetButton" name="update" value="{{ index }}">Update</button>
-                        </div>
+                    <div class="budget-item">
+                        <input placeholder="{{ userData['Category'][index] }}" name="category_{{ index }}"
+                            class="category-input" value="{{ userData['Category'][index] }}">
+                        <input placeholder="{{ userData['Amount'][index] }}" name="amount_{{ index }}" type="number"
+                            class="amount-input" step="0.01" min="0" value="{{ userData['Amount'][index] }}">
+                        <button type="submit" class="budgetButton" name="update" value="{{ index }}">Update</button>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -53,7 +47,7 @@
 
             <!-- removes most recent item -->
             <form action="{{ url_for('removeBudgetItem') }}" method="POST">
-                <button type="submit" name="action" value="remove_item" class="removeButton">Remove</button> 
+                <button type="submit" name="action" value="remove_item" class="removeButton">Remove</button>
             </form>
         </div>
     </div>
