@@ -35,16 +35,27 @@
                 </div>
                 
                 <div class="tableBottom">
+                    <!-- FOR OWN USAGE: JINJA Iterates through the range and adds that index to the name and value elements of the input tag GIVING EACH ELEMENT A INDEX!!! -->
                     {% for index in range(userData['Category']|length) %}
                         <div class="budget-item">
-                            <input name="category_{{ index }}" class="category-input" value="{{ userData['Category'][index] }}">
-                            <input name="amount_{{ index }}" type="number" class="amount-input" step="0.01" min="0" value="{{ userData['Amount'][index] }}">
+                            <input placeholder="{{ userData['Category'][index] }}" name="category_{{ index }}" class="category-input" value="{{ userData['Category'][index] }}">
+                            <input placeholder="{{ userData['Amount'][index] }}" name="amount_{{ index }}" type="number" class="amount-input" step="0.01" min="0" value="{{ userData['Amount'][index] }}">
                             <button type="submit" class="budgetButton" name="update" value="{{ index }}">Update</button>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </form>
+        <div class="button-container">
+            <form action="{{ url_for('addBudgetItem') }}" method="POST">
+                <button type="submit" name="action" value="add_item" class="addButton">Add</button>
+            </form>
+
+            <!-- removes most recent item -->
+            <form action="{{ url_for('removeBudgetItem') }}" method="POST">
+                <button type="submit" name="action" value="remove_item" class="removeButton">Remove</button> 
+            </form>
+        </div>
     </div>
 
 
