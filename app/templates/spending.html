@@ -3,11 +3,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scal e=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
     <link rel="stylesheet" href="../static/styles/style.css">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- <script src="../static/scripts/index.js"></script> -->
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Chris | Entrepreneur Tracker</title>
 </head>
@@ -28,15 +30,40 @@
             <h1>Spending</h1>
         </div>
         <div class="bottomContainer">
-            <div class="transactionListContainer">
-                <div class="buttonList">
-                    <form action="{{ url_for('displayTransactions') }}" method="POST">
-                        {% for category in userData['categories'] %}
-                            <button type="submit" name="category" value="{{ category['name'] }}" class="displayButton">
-                                {{ category['name'] }}
-                            </button>
-                        {% endfor %}
-                    </form>
+            <div class="transactionContainer">
+                <div class="row">
+                    <div class="col-4">
+                        <div id="category-list" class="list-group">
+                            {% for category in userData['categories'] %}
+                                <a class="list-group-item list-group-item-action" href="#category-{{ loop.index }}">
+                                    {{ category['name'] }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div data-bs-spy="scroll" data-bs-target="#category-list" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
+                            {% for category in userData['categories'] %}
+                                <div id="category-{{ loop.index }}">
+                                    <h4>{{ category['name'] }}</h4>
+                                    <ul class="list-group">
+                                        {% for amount in category['amounts'] %}
+                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <form id="form-{{ category['name'] }}-{{ loop.index0 }}" action="{{ url_for('updateTransaction') }}" method="POST" class="d-flex align-items-center w-100">
+                                                    <input type="hidden" name="category" value="{{ category['name'] }}">
+                                                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                                                    <span class="me-2">Transaction {{ loop.index }}:</span>
+                                                    <input type="number" name="amount" value="{{ amount }}" step="0.01" class="form-control form-control-sm me-2" style="width: 100px;">
+                                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                                </form>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <p class="mt-2">Total: ${{ "%.2f"|format(category['amounts']|sum) }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,24 +1,41 @@
 {
-    "categories": [
-      {
-        "name": "Rent",
-        "amounts": [1000.0]
-      },
-      {
-        "name": "Transportation",
-        "amounts": [20, 10, 30]
-      },
-      {
-        "name": "School Expenses",
-        "amounts": [1000.0, 600.00]
-      },
-      {
-        "name": "Food",
-        "amounts": [20, 10, 30]
-      },
-      {
-        "name": "Random Expenses",
-        "amounts": [10, 10, 30.20]
-      }
-    ]
-  }
+  "categories": [
+    {
+      "name": "Rent",
+      "amounts": [
+        1212.0
+      ]
+    },
+    {
+      "name": "Transportation",
+      "amounts": [
+        20,
+        10,
+        30
+      ]
+    },
+    {
+      "name": "School Expenses",
+      "amounts": [
+        1000.0,
+        600.0
+      ]
+    },
+    {
+      "name": "Food",
+      "amounts": [
+        20,
+        10,
+        30
+      ]
+    },
+    {
+      "name": "Random Expenses",
+      "amounts": [
+        10,
+        10,
+        30.2
+      ]
+    }
+  ]
+}

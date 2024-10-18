@@ -20,8 +20,7 @@ class DataProcessor:
         fig = px.pie(df, values="Amount", names="Category")
 
         # Remove chart background
-        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)",
-                          plot_bgcolor="rgba(0,0,0,0)")
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
 
         chart = fig.to_html(full_html=False)
         return chart
@@ -94,18 +93,31 @@ def updateBudget():
                 with open("app/static/data.json", "w") as file:
                     json.dump(data, file, indent=4)
 
-                print(
-                    f"Updated budget: New Category: {
-                        new_category}, New Amount: {new_amount}"
-                )
-            else:
-                print(f"Invalid index: {index}")
-        else:
-            print(f"Invalid input for index {index}")
-    else:
-        print("No specific update requested")
-
     return redirect(url_for("editBudget"))
+
+
+@app.route("/updateTransaction", methods=["POST"])
+def updateTransaction():
+    category = request.form["category"]
+    index = int(request.form["index"])
+    new_amount = float(request.form["amount"])
+
+    # Load current data
+    with open("app/static/categories.json", "r") as file:
+        data = json.load(file)
+
+    # Update the specific amount
+    for cat in data["categories"]:
+        if cat["name"] == category:
+            cat["amounts"][index] = new_amount
+            break
+
+    # Save the updated data
+    with open("app/static/categories.json", "w") as file:
+        json.dump(data, file, indent=2)
+
+    # Redirect back to the spending page
+    return redirect(url_for("spending"))
 
 
 @app.route("/addBudgetItem", methods=["POST", "GET"])
@@ -150,6 +162,6 @@ def removeBudgetItem():
     return redirect(url_for("editBudget"))
 
 
-@app.route('/displayTransactions', methods=['POST', 'GET'])
+@app.route("/displayTransactions", methods=["POST", "GET"])
 def displayTransactions():
-    pass
+    return redirect(url_for("spending"))
