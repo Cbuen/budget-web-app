@@ -165,3 +165,20 @@ def removeBudgetItem():
 @app.route("/displayTransactions", methods=["POST", "GET"])
 def displayTransactions():
     return redirect(url_for("spending"))
+
+@app.route('/addTransaction', methods=['POST', 'GET'])
+def addTransaction():
+    category_index = int(request.form.get('loopIndex'))
+    # load the json file
+    with open('app/static/categories.json', 'r') as file:
+        data = json.load(file)
+
+    
+    #add new transaction with defualt amount
+    data['categories'][category_index]['amounts'].append(10.0)  # Default amount of 100
+    
+    with open('app/static/categories.json', 'w') as file:
+        json.dump(data, file, indent=4)
+    
+    return redirect(url_for('spending'))
+    
