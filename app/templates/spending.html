@@ -31,8 +31,10 @@
             <div class="transactionListContainer">
                 <div class="buttonList">
                     <form action="{{ url_for('displayTransactions') }}" method="POST">
-                        {% for index in range(userData|length) %}
-                            <button type="submit"class="displayButton">{{ userData['categories'][index] }}</button>
+                        {% for category in userData['categories'] %}
+                            <button type="submit" name="category" value="{{ category['name'] }}" class="displayButton">
+                                {{ category['name'] }}
+                            </button>
                         {% endfor %}
                     </form>
                 </div>
