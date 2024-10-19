@@ -43,6 +43,41 @@ class DataProcessor:
             # Get nested data
             df = pd.DataFrame(data)
         return df
+    
+    @staticmethod
+    def alignJsonFiles(main_file, categories_file):
+        # Load the main JSON file
+        with open(main_file, 'r') as f:
+            main_data = json.load(f)
+        
+        # Load the categories JSON file
+        with open(categories_file, 'r') as f:
+            categories_data = json.load(f)
+        
+        # Extract categories from main file
+        main_categories = set(main_data['data']['Category'])
+        
+        # Update the categories in the categories file
+        updated_categories = []
+        for category in categories_data['categories']:
+            if category['name'] in main_categories:
+                updated_categories.append(category)
+                main_categories.remove(category['name'])
+        
+        # Add any new categories from the main file
+        for new_category in main_categories:
+            updated_categories.append({
+                "name": new_category,
+                "amounts": []  # Initialize with an empty list
+            })
+        
+        # Update the categories file
+        categories_data['categories'] = updated_categories
+        
+        # Write the updated data back to the categories file
+        with open(categories_file, 'w') as f:
+            json.dump(categories_data, f, indent=4)
+        
 
 
 @app.route("/")
@@ -58,6 +93,7 @@ def budget():
 
 @app.route("/spending")
 def spending():
+    DataProcessor.alignJsonFiles("app/static/data.json", "app/static/categories.json")
     df = DataProcessor.userPandaDFCategory("app/static/categories.json")
     return render_template("spending.html", userData=df)
 
@@ -65,8 +101,11 @@ def spending():
 @app.route("/editBudget")
 def editBudget():
     df = DataProcessor.userPandaDF("app/static/data.json")
-
     return render_template("editBudget.html", userData=df)
+
+@app.route("/goals")
+def goals():
+    return render_template("goals.html")
 
 
 @app.route("/updateBudget", methods=["POST", "GET"])
@@ -181,4 +220,21 @@ def addTransaction():
         json.dump(data, file, indent=4)
     
     return redirect(url_for('spending'))
+
+@app.route('/removeTransaction', methods=["POST", "GET"])
+def removeTransaction():
+    category_index = int(request.form.get('loopIndex'))
+    with open("app/static/categories.json", "r") as file:
+        data = json.load(file)
+
+    if len(data["categories"][category_index]["amounts"]) > 0:
+        data["categories"][category_index]["amounts"].pop()
+    else:
+        print("empty list")
+        return redirect(url_for("spending"))
+    
+    with open("app/static/categories.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+        return redirect(url_for("spending"))
     

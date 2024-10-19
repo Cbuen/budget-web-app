@@ -5,14 +5,14 @@
             "Transportation",
             "School Expenses",
             "Food",
-            "Random Expenses"
+            "New Category"
         ],
         "Amount": [
             1000.0,
             250.0,
             600.0,
             200.0,
-            1000.0
+            100.0
         ]
     }
 }
