@@ -171,6 +171,19 @@ nav .home-link-logo{
     flex: 0 0 auto;
 }
 
+/* goals page styles */
+
+.goalItem {
+    transition: all 0.3s ease;
+}
+
+
+.goalItem:hover {
+    transform: translateX(10px);
+    background-color: #f8f9fa;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
 /* Media query for smaller screens */
 @media (max-width: 600px) {
     .editContainer {

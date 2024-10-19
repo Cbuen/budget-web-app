@@ -1,0 +1,17 @@
+{
+    "categories": [
+      {
+        "name": "Electronics",
+        "amount": 1000
+      },
+      {
+        "name": "Clothing",
+        "amount": 2000
+      },
+
+      {
+        "name": "Books",
+        "amount": 200
+      }
+    ]
+  }

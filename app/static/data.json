@@ -4,15 +4,13 @@
             "Rent",
             "Transportation",
             "School Expenses",
-            "Food",
-            "New Category"
+            "Food"
         ],
         "Amount": [
             1000.0,
             250.0,
             600.0,
-            200.0,
-            100.0
+            200.0
         ]
     }
 }

@@ -43,41 +43,39 @@ class DataProcessor:
             # Get nested data
             df = pd.DataFrame(data)
         return df
-    
+
     @staticmethod
     def alignJsonFiles(main_file, categories_file):
         # Load the main JSON file
-        with open(main_file, 'r') as f:
+        with open(main_file, "r") as f:
             main_data = json.load(f)
-        
+
         # Load the categories JSON file
-        with open(categories_file, 'r') as f:
+        with open(categories_file, "r") as f:
             categories_data = json.load(f)
-        
+
         # Extract categories from main file
-        main_categories = set(main_data['data']['Category'])
-        
+        main_categories = set(main_data["data"]["Category"])
+
         # Update the categories in the categories file
         updated_categories = []
-        for category in categories_data['categories']:
-            if category['name'] in main_categories:
+        for category in categories_data["categories"]:
+            if category["name"] in main_categories:
                 updated_categories.append(category)
-                main_categories.remove(category['name'])
-        
+                main_categories.remove(category["name"])
+
         # Add any new categories from the main file
         for new_category in main_categories:
-            updated_categories.append({
-                "name": new_category,
-                "amounts": []  # Initialize with an empty list
-            })
-        
+            updated_categories.append(
+                {"name": new_category, "amounts": []}  # Initialize with an empty list
+            )
+
         # Update the categories file
-        categories_data['categories'] = updated_categories
-        
+        categories_data["categories"] = updated_categories
+
         # Write the updated data back to the categories file
-        with open(categories_file, 'w') as f:
+        with open(categories_file, "w") as f:
             json.dump(categories_data, f, indent=4)
-        
 
 
 @app.route("/")
@@ -103,9 +101,13 @@ def editBudget():
     df = DataProcessor.userPandaDF("app/static/data.json")
     return render_template("editBudget.html", userData=df)
 
+
 @app.route("/goals")
 def goals():
-    return render_template("goals.html")
+    with open("app/static/goals.json", "r") as file:
+        userData = json.load(file)
+
+    return render_template("goals.html", userData=userData)
 
 
 @app.route("/updateBudget", methods=["POST", "GET"])
@@ -205,25 +207,26 @@ def removeBudgetItem():
 def displayTransactions():
     return redirect(url_for("spending"))
 
-@app.route('/addTransaction', methods=['POST', 'GET'])
+
+@app.route("/addTransaction", methods=["POST", "GET"])
 def addTransaction():
-    category_index = int(request.form.get('loopIndex'))
+    category_index = int(request.form.get("loopIndex"))
     # load the json file
-    with open('app/static/categories.json', 'r') as file:
+    with open("app/static/categories.json", "r") as file:
         data = json.load(file)
 
-    
-    #add new transaction with defualt amount
-    data['categories'][category_index]['amounts'].append(10.0)  # Default amount of 100
-    
-    with open('app/static/categories.json', 'w') as file:
-        json.dump(data, file, indent=4)
-    
-    return redirect(url_for('spending'))
+    # add new transaction with defualt amount
+    data["categories"][category_index]["amounts"].append(10.0)  # Default amount of 100
 
-@app.route('/removeTransaction', methods=["POST", "GET"])
+    with open("app/static/categories.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    return redirect(url_for("spending"))
+
+
+@app.route("/removeTransaction", methods=["POST", "GET"])
 def removeTransaction():
-    category_index = int(request.form.get('loopIndex'))
+    category_index = int(request.form.get("loopIndex"))
     with open("app/static/categories.json", "r") as file:
         data = json.load(file)
 
@@ -232,9 +235,8 @@ def removeTransaction():
     else:
         print("empty list")
         return redirect(url_for("spending"))
-    
+
     with open("app/static/categories.json", "w") as file:
         json.dump(data, file, indent=4)
 
         return redirect(url_for("spending"))
-    
