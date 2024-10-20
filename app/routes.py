@@ -110,6 +110,12 @@ def goals():
     return render_template("goals.html", userData=userData)
 
 
+@app.route("/updateGoalAmounts", methods=["POST", "GET"])
+def updateGoalAmounts():
+
+    return redirect(url_for("goals"))
+
+
 @app.route("/updateBudget", methods=["POST", "GET"])
 def updateBudget():
     update_index = request.form.get("update")
