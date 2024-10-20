@@ -38,7 +38,7 @@
     <h1>Goals</h1>
     <ul class="list-group">
       {% for category in userData["categories"] %}
-      <li class="list-group-item goalItem">
+      <li class="list-group-item hoverItem">
         <label for="rangeSlider" class="form-label">{{ category["name"] }}</label>
         <input type="range" class="form-range" min="0" max="5000" step="1" id="rangeSlider" value="{{ category['amount'] }}">
         <div class="container-fluid d-flex justify-content-center">
@@ -52,15 +52,7 @@
 
 
 
-<!-- Code for JS
-const slider = document.getElementById("myRange");
-const output = document.getElementById("rangeValue");
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
- -->
+<!-- z -->
 </body>
 
 
