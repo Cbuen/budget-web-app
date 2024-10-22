@@ -4,6 +4,9 @@ import pandas as pd
 import plotly.express as px
 import json
 
+# goal page data
+# [{'name': 'Electronics', 'amount': 5000.0}, {'name': 'Clothing', 'amount': 2000.0}, {'name': 'Books', 'amount': 200.0}]}
+
 
 class DataProcessor:
     # uses json path as param for function for now until its in the cloud
@@ -109,9 +112,20 @@ def goals():
     return render_template("goals.html", userData=userData)
 
 
-@app.route("/updateGoalName")
+@app.route("/updateGoalName", methods=["POST", "GET"])
 def updateGoalName():
-    pass
+    index = int(request.form["index"])
+    new_name = request.form["newName"]
+
+    with open("app/static/goals.json", "r") as file:
+        data = json.load(file)
+
+    data["categories"][index]["name"] = new_name
+
+    with open("app/static/goals.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    return redirect(url_for("goals"))
 
 
 @app.route("/updateGoalAmounts", methods=["POST", "GET"])
@@ -132,6 +146,20 @@ def updateGoalAmounts():
     return redirect(url_for("goals"))
 
 
+@app.route("/addGoal", methods=["POST", "GET"])
+def addGoal():
+    # Load current data
+    with open("app/static/goals.json", "r") as file:
+        data = json.load(file)
+
+    data["categories"].append({"name": "New Item", "amount": 100.0})
+
+    with open("app/static/goals.json", "w") as file:
+        json.dump(data, file, indent=4)
+
+    return redirect(url_for("goals"))
+
+
 @app.route("/removeGoal", methods=["POST", "GET"])
 def removeGoal():
 
@@ -139,8 +167,13 @@ def removeGoal():
     with open("app/static/goals.json", "r") as file:
         data = json.load(file)
 
-    print(data)
+    if len(data["categories"]) > 0:
+        data["categories"].pop()
 
+        with open("app/static/goals.json", "w") as file:
+            json.dump(data, file, indent=4)
+    else:
+        print("Cannot remove goals if no goals exist")
     return redirect(url_for("goals"))
 
 

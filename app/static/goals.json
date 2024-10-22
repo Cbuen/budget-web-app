@@ -1,16 +1,8 @@
 {
     "categories": [
         {
-            "name": "Electronics",
-            "amount": 2000.0
-        },
-        {
-            "name": "Clothing",
-            "amount": 2000.0
-        },
-        {
-            "name": "Books",
-            "amount": 200.0
+            "name": "Laptop",
+            "amount": 100.0
         }
     ]
 }

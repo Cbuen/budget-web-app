@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="../static/styles/style.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/app/static/scripts/scripts.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/app/static/scripts/scripts.js"></script>
   <!-- <script src="../static/scripts/index.js"></script> -->
 
   <title>Chris | Entrepreneur Tracke</title>
@@ -37,29 +37,42 @@
 
   <div class="container-fluid d-flex justify-content-center">
     <div class="row">
-      <h1>Goals</h1>
-      <button>+</button>
-      <form action="{{ url_for('removeGoal') }}"><button type="submit">-</button></form>
+      <div class="col">
+        <h1>Goals</h1>
+      </div>
+
+      <div class="col">
+        <form action="/addGoal" method="POST"><button type="submit">+</button></form>
+        <form action="/removeGoal"><button type="submit">-</button></form>
+      </div>
+
       <ul class="list-group">
         {% for category in userData["categories"] %}
         <li class="list-group-item hoverItem">
-          <form action="{{ url_for('updateGoalAmounts') }}" method="POST">
-            <label for="amountInput" class="form-label">{{ category["name"] }}</label>
-            <!-- Number input field to manually enter amount -->
-            <div class="row">
-              <input placeholder="{{ category[name] }}" class="category-input" value="Rent">
+          <label for="amountInput" class="form-label">{{ category["name"] }}</label>
+          <!-- Number input field to manually enter amount -->
+          <div class="row">
 
-              
-              <form action="{{ updateGoalName }}"><button type="submit" method="POST" class="btn btn-outline-success">Update</button>
-              </form>
+            <form action="{{ url_for('updateGoalName') }}" method="POST">
+              <input placeholder="{{ category['name'] }}" class="category-input" name="newName" value="">
+              <input type="hidden" name="index" value="{{ loop.index0 }}">
 
-            </div>
-            <input type="number" class="form-control" name="amount" min="0" max="5000" step="1" value="{{ category['amount'] }}" required>
-            <!-- Hidden input to pass the category ID -->
-            <input type="hidden" name="index" value="{{ loop.index0 }}">
-            <!-- Update button -->
-            <button type="submit" class="btn btn-outline-success mt-2">Update</button>
-          </form>
+              <!-- Need to add json linkeage, add some way to get index of goal name -->
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            </form>
+
+          </div>
+          <div class="row">
+            <form action="{{ url_for('updateGoalAmounts') }}" method="POST">
+              <input type="number" class="form-control" name="amount" min="0" max="5000" step="1"
+                value="{{ category['amount'] }}" required>
+              <!-- Hidden input to pass the category ID -->
+              <input type="hidden" name="index" value="{{ loop.index0 }}">
+              <!-- Update button -->
+              <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            </form>
+
+          </div>
         </li>
         {% endfor %}
       </ul>
@@ -69,7 +82,7 @@
 
 
 
-<!-- z -->
+  <!-- z -->
 </body>
 
 

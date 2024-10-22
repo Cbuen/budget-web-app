@@ -10,14 +10,13 @@
         {
             "name": "Transportation",
             "amounts": [
-                20.0
+                10.0
             ]
         },
         {
             "name": "School Expenses",
             "amounts": [
-                1000.0,
-                600.0
+                1000.0
             ]
         },
         {
