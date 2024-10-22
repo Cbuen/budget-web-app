@@ -108,7 +108,12 @@ def goals():
         userData = json.load(file)
     return render_template("goals.html", userData=userData)
 
-"""FIX FUNCTTION WORKING ON NEXT STEP IS TO UPDATE THE JSON FILE AND DUMP IT"""
+
+@app.route("/updateGoalName")
+def updateGoalName():
+    pass
+
+
 @app.route("/updateGoalAmounts", methods=["POST", "GET"])
 def updateGoalAmounts():
     category = request.form["amount"]
@@ -119,10 +124,24 @@ def updateGoalAmounts():
     with open("app/static/goals.json", "r") as file:
         data = json.load(file)
 
-    print(data['categories'][index])
+    data["categories"][index]["amount"] = new_amount
+
+    with open("app/static/goals.json", "w") as file:
+        json.dump(data, file, indent=4)
 
     return redirect(url_for("goals"))
-"""MARKED OFF FOR REFERENCE OF WHAT TO FIX NEXT"""
+
+
+@app.route("/removeGoal", methods=["POST", "GET"])
+def removeGoal():
+
+    # Load current data
+    with open("app/static/goals.json", "r") as file:
+        data = json.load(file)
+
+    print(data)
+
+    return redirect(url_for("goals"))
 
 
 @app.route("/updateBudget", methods=["POST", "GET"])

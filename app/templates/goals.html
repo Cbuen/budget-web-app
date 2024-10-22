@@ -38,12 +38,22 @@
   <div class="container-fluid d-flex justify-content-center">
     <div class="row">
       <h1>Goals</h1>
+      <button>+</button>
+      <form action="{{ url_for('removeGoal') }}"><button type="submit">-</button></form>
       <ul class="list-group">
         {% for category in userData["categories"] %}
         <li class="list-group-item hoverItem">
           <form action="{{ url_for('updateGoalAmounts') }}" method="POST">
             <label for="amountInput" class="form-label">{{ category["name"] }}</label>
             <!-- Number input field to manually enter amount -->
+            <div class="row">
+              <input placeholder="{{ category[name] }}" class="category-input" value="Rent">
+
+              
+              <form action="{{ updateGoalName }}"><button type="submit" method="POST" class="btn btn-outline-success">Update</button>
+              </form>
+
+            </div>
             <input type="number" class="form-control" name="amount" min="0" max="5000" step="1" value="{{ category['amount'] }}" required>
             <!-- Hidden input to pass the category ID -->
             <input type="hidden" name="index" value="{{ loop.index0 }}">
