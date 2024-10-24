@@ -1,7 +1,15 @@
 {
     "categories": [
         {
-            "name": "Laptop",
+            "name": "",
+            "amount": 5000.0
+        },
+        {
+            "name": "New Item",
+            "amount": 100.0
+        },
+        {
+            "name": "New Item",
             "amount": 100.0
         }
     ]
