@@ -111,6 +111,10 @@ def goals():
         userData = json.load(file)
     return render_template("goals.html", userData=userData)
 
+@app.route("/updateGoal", methods=["POST", "GET"])
+def updateGoal():
+    pass
+
 
 @app.route("/updateGoalName", methods=["POST", "GET"])
 def updateGoalName():
