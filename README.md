@@ -7,8 +7,8 @@ This is a simple budget web application built using Flask, Python, JavaScript, H
 ## **Features**
 
 - Add, edit, and delete items to budget
-- Based on users Budget spending categories will be generated
-- Sub spending categories can be added
+- Based on user's budget, spending categories will be generated
+- Sub-spending categories can be added
 - Create financial goals to reach and HTML can be adjusted for max $ amount
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;">
@@ -27,13 +27,8 @@ This is a simple budget web application built using Flask, Python, JavaScript, H
 
 ## **Future Goals**
 
-Our vision for the Simple Budget Web App extends beyond its current capabilities. Here are some exciting features and improvements we're planning to implement:
+Simple future goals I wish to add as I improve my skills and knowledge:
 
-1. **Mobile App Development**: Create iOS and Android versions for on-the-go budget management.
-2. **AI-Powered Insights**: Implement machine learning algorithms to provide personalized financial advice.
-3. **Integration with Financial Institutions**: Allow direct connection to bank accounts for real-time transaction tracking.
-4. **Advanced Reporting**: Develop comprehensive financial reports and visualizations.
-5. **Multi-Currency Support**: Enable users to manage budgets across different currencies.
-6. **Collaborative Budgeting**: Introduce features for shared budgets among family members or teams.
-
-We're committed to continuously improving the app to meet our users' evolving financial management needs.
+1. **Mobile App Development**: Add mobile usability
+2. **Database integration**
+3. **User authentication/profile infrastructure**
