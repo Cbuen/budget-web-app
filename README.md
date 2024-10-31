@@ -23,7 +23,7 @@ This is a simple budget web application built using Flask, Python, JavaScript, H
 - **Backend**: Python, Flask
 - **Frontend**: HTML, CSS, JavaScript
 - **CSS Framework**: Bootstrap
-- **Database**: SQLite (or your chosen database)
+- **Data stored locally via json**
 
 ## **Future Goals**
 
